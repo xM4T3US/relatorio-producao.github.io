@@ -51,7 +51,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Restante do CSS atualizado para tema dark */
+        /* CSS tema dark */
         header {
             background: linear-gradient(90deg, var(--azul-cobalto) 0%, var(--azul-medio) 100%);
             color: var(--branco);
@@ -579,7 +579,7 @@
             }
         }
 
-        /* NOVO RODAPÉ MJ TECH CORRIGIDO */
+        /*  RODAPÉ MJ TECH  */
         .novo-rodape-container {
             width: 100%;
             max-width: 1000px;
@@ -686,7 +686,7 @@
         </header>
         
         <div class="content">
-            <!-- Seletor de Turno Integrado -->
+            <!-- Seletor de Turno -->
             <div class="turno-selector">
                 <label class="turno-label" for="turnoSelect">SELECIONE O TURNO:</label>
                 <select id="turnoSelect" class="turno-select">
@@ -767,7 +767,7 @@
                 </div>
             </div>
 
-            <!-- SEGUNDA PARTE INTEGRADA -->
+            <!-- Seletor de linha -->
             <div class="card">
                 <div class="card-title"><i class="fas fa-sliders-h"></i> CONFIGURAÇÕES DA LINHA</div>
                 <div class="form-group">
@@ -783,7 +783,7 @@
             <div class="card">
                 <div class="card-title"><i class="fas fa-clipboard-list"></i> INFORMAÇÕES ADICIONAIS</div>
                 <div class="additional-fields">
-                    <!-- NOVOS CAMPOS ADICIONADOS -->
+                    <!-- Supervisorio e Max compenser-->
                     <div class="additional-field">
                         <h3><i class="fas fa-fire"></i> Carga Forno (m²)</h3>
                         <input type="number" id="cargaForno" step="any" value="0" placeholder="0,00" onchange="updateReport()">
@@ -808,7 +808,7 @@
                         <input type="number" id="emergencia" step="any" value="0" placeholder="0" onchange="updateReport()">
                     </div>
                     
-                    <!-- NOVO CAMPO: CALCULAR PERDA (RETIFICADO) -->
+                    <!-- CALCULAR PERDA (RETIFICADO) -->
                     <div class="additional-field perda-field">
                         <h3><i class="fas fa-calculator"></i> Calcular Perda (Retifica)</h3>
                         <select id="perdaFormato" onchange="togglePerdaCalculator()">
@@ -869,7 +869,7 @@
                 </div>
             </div>
 
-            <!-- ÁREA DO MULTI-RELATÓRIO -->
+            <!-- MULTI-RELATÓRIO -->
             <div class="card" id="multiReportSection" style="display: none;">
                 <div class="report-section">
                     <div class="report-title"><i class="fas fa-files"></i> RELATÓRIO </div>
@@ -885,7 +885,7 @@
         </div>
     </div>
 
-    <!-- RODAPÉ MJ TECH -->
+    
     <div class="novo-rodape-container">
         <footer class="novo-rodape">
             <!-- Logotipo -->
@@ -919,7 +919,7 @@
     </div>
 
     <script>
-        // Variável global para armazenar o turno selecionado
+        // Variável para armazenar o turno selecionado
         let turnoSelecionado = "";
         let historicoCalculos = [];
         let perdaCalculada = 0;
@@ -1010,7 +1010,7 @@
             updateReport();
         }
 
-        // Função para atualizar a exibição da dimensão selecionada
+        // Atualizar a dimensão selecionada
         function updateDimensionDisplay() {
             const select = document.getElementById("dimensao");
             const display = document.getElementById("dimensionDisplay");
@@ -1024,13 +1024,12 @@
             `;
         }
 
-        // Função para calcular a produção (AGORA ACEITA QUANTIDADE = 0)
+        // Função para calcular a produção
         function calculate() {
             const dimensao = parseFloat(document.getElementById("dimensao").value);
             const quantidade = parseInt(document.getElementById("quantidade").value) || 0; // Aceita 0
             const adicional = parseFloat(document.getElementById("valor2").value) || 0;
             
-            // REMOVIDA A VALIDAÇÃO QUE IMPEDIA CÁLCULO COM QUANTIDADE = 0
             const total = (dimensao * quantidade) + adicional;
             
             // Atualiza o resultado
@@ -1056,13 +1055,10 @@
             
             breakdown.innerHTML = breakdownText;
             
-            // Adiciona ao histórico apenas se houver algum valor calculado
             if (total > 0) {
                 addToHistory(dimensao, quantidade, adicional, total);
-            }
-        }
 
-        // Função para adicionar cálculo ao histórico
+        // histórico de cálculo 
         function addToHistory(dimensao, quantidade, adicional, total) {
             const select = document.getElementById("dimensao");
             const formato = select.options[select.selectedIndex].text;
@@ -1113,7 +1109,6 @@
             updateHistoryDisplay();
         }
         
-        // FUNÇÃO updateReport() MODIFICADA COM OS NOVOS CAMPOS
         function updateReport() {
             const linha = document.getElementById('linha').value;
             const formatoSelect = document.getElementById('dimensao');
@@ -1254,7 +1249,7 @@
             multiRelatorioElement.innerText = textoCompleto;
         }
 
-        // Função para limpar multi-relatório
+        // limpa multi-relatório
         function clearMultiReport() {
             multiRelatorios = [];
             document.getElementById('multiRelatorio').innerText = '';
@@ -1270,7 +1265,7 @@
             }, 2000);
         }
 
-        // Função para copiar multi-relatório
+        // copia multi-relatório
         function copyMultiReport() {
             const multiRelatorio = document.getElementById('multiRelatorio');
             
