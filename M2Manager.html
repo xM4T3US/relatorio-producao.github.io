@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RELATÓRIO DE PRODUÇÃO INDUSTRIAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-claro: #4a90e2;
+            --azul-medio: #2c5aa0;
+            --azul-cobalto: #1e3a8a;
+            --azul-escuro: #0f1c44;
+            --branco: #ffffff;
+            --cinza-claro: #f8fafc;
+            --cinza-medio: #e2e8f0;
+            --cinza-escuro: #64748b;
+            --preto: #000000;
+            --cinza-escuro-bg: #1a1a1a;
+            --cinza-medio-bg: #2d2d2d;
+            --sombra: rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(180deg, #4a5568 0%, #2d3748 25%, #1a202c 50%, #0f1419 75%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+            position: relative;
+            color: var(--cinza-claro);
+        }
+        
+        .container {
+            background-color: rgba(30, 30, 30, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 12px 36px var(--sombra);
+            width: 100%;
+            max-width: 1000px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Restante do CSS atualizado para tema dark */
+        header {
+            background: linear-gradient(90deg, var(--azul-cobalto) 0%, var(--azul-medio) 100%);
+            color: var(--branco);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
+            transform: rotate(30deg);
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 0;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .card {
+            background-color: rgba(45, 45, 45, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px var(--sombra);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-title {
+            font-size: 18px;
+            color: var(--azul-claro);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--azul-cobalto);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--cinza-claro);
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: rgba(30, 30, 30, 0.8);
+            color: var(--cinza-claro);
+        }
+        
+        select:focus, input:focus, textarea:focus {
+            border-color: var(--azul-claro);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+            background-color: rgba(40, 40, 40, 0.9);
+        }
+        
+        .dimension-info {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 8px;
+            font-weight: 500;
+            color: var(--cinza-claro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--azul-medio);
+        }
+        
+        .area-tag {
+            background: var(--azul-cobalto);
+            color: var(--branco);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, var(--azul-cobalto) 0%, var(--azul-medio) 100%);
+            color: var(--branco);
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .result-container {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(45, 45, 45, 0.9) 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            text-align: center;
+            border: 2px dashed var(--azul-medio);
+        }
+        
+        .result-title {
+            font-size: 18px;
+            color: var(--azul-claro);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .result-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--cinza-claro);
+        }
+        
+        .calculation-breakdown {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--cinza-claro);
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .history {
+            margin-top: 30px;
+        }
+        
+        .history-title {
+            font-size: 20px;
+            color: var(--azul-claro);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--azul-cobalto);
+            text-align: center;
+        }
+        
+        .history-container {
+            overflow-x: auto;
+            margin: 0 auto;
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+        
+        th, td {
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--cinza-claro);
+        }
+        
+        th {
+            background-color: rgba(30, 30, 30, 0.9);
+            color: var(--azul-claro);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr:hover {
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+        
+        .unit {
+            font-size: 20px;
+            margin-left: 2px;
+        }
+        
+        .empty-history {
+            text-align: center;
+            padding: 20px;
+            color: var(--cinza-escuro);
+            font-style: italic;
+        }
+        
+        .clear-history {
+            display: block;
+            margin: 15px auto 0;
+            padding: 10px 20px;
+            background-color: var(--azul-medio);
+            color: var(--branco);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .clear-history:hover {
+            background-color: var(--azul-cobalto);
+        }
+        
+        .additional-fields {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .additional-field {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid var(--azul-medio);
+        }
+        
+        .additional-field h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: var(--azul-claro);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .falha-field {
+            grid-column: span 3;
+        }
+        
+        .falha-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+        
+        .quebra-field {
+            grid-column: span 3;
+        }
+        
+        .quebra-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+        
+        .observacoes-field {
+            grid-column: span 3;
+        }
+        
+        .observacoes-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+        
+        .perda-field {
+            grid-column: span 3;
+        }
+        
+        .perda-calculator {
+            background-color: rgba(45, 45, 45, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+        
+        .perda-result {
+            background-color: var(--azul-cobalt);
+            color: var(--branco);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .report-section {
+            margin-top: 30px;
+        }
+        
+        .report-title {
+            font-size: 20px;
+            color: var(--azul-claro);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .report-text {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 180px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 18px;
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            box-shadow: 0 4px 12px var(--sombra);
+            color: var(--cinza-claro);
+        }
+        
+        .report-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .report-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-btn {
+            background-color: var(--azul-medio);
+            color: var(--branco);
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--azul-cobalto);
+        }
+        
+        .update-btn {
+            background-color: var(--azul-cobalto);
+            color: var(--branco);
+        }
+        
+        .update-btn:hover {
+            background-color: var(--azul-escuro);
+        }
+        
+        .clear-btn {
+            background-color: var(--cinza-escuro);
+            color: var(--branco);
+        }
+        
+        .clear-btn:hover {
+            background-color: #4b5563;
+        }
+        
+        .add-btn {
+            background-color: #059669;
+            color: var(--branco);
+        }
+        
+        .add-btn:hover {
+            background-color: #047857;
+        }
+        
+        /* Estilos para o seletor de turno */
+        .turno-selector {
+            background-color: rgba(45, 45, 45, 0.9);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--sombra);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .turno-label {
+            font-weight: 600;
+            color: var(--cinza-claro);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .turno-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: rgba(30, 30, 30, 0.8);
+            color: var(--cinza-claro);
+            transition: all 0.3s;
+        }
+        
+        .turno-select:focus {
+            border-color: var(--azul-claro);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+        }
+        
+        .multi-report-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 12px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .result-value {
+                font-size: 32px;
+            }
+            
+            .dimension-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .area-tag {
+                margin-top: 0;
+            }
+            
+            .additional-fields {
+                grid-template-columns: 1fr;
+            }
+            
+            .falha-field,
+            .quebra-field,
+            .observacoes-field,
+            .perda-field {
+                grid-column: span 1;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 14px;
+            }
+            
+            table {
+                min-width: 550px;
+            }
+            
+            .report-buttons {
+                flex-direction: column;
+            }
+            
+            .report-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .multi-report-footer {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .card-title {
+                font-size: 16px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+            
+            table {
+                min-width: 500px;
+            }
+            
+            .history-title {
+                font-size: 18px;
+            }
+            
+            .result-value {
+                font-size: 28px;
+            }
+        }
+
+        /* NOVO RODAPÉ MJ TECH CORRIGIDO */
+        .novo-rodape-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+        }
+
+        .novo-rodape {
+            color: #d1d1d1;
+            background: #000;
+            padding: 3px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 32px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Logotipo */
+        .footer-logo-rodape {
+            position: relative;
+            left: -25px;
+        }
+
+        .footer-logo-rodape img {
+            height: 110px;
+            border-radius: 10px;
+        }
+
+        /* Coluna de contato */
+        .footer-column-rodape {
+            text-align: center;
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            left: 25px;
+        }
+
+        .footer-column-rodape h3 {
+            color: #4a90e2;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            border-left: 2px solid #4a90e2;
+            padding-left: 6px;
+        }
+
+        /* Links e ícones */
+        .footer-column-rodape a {
+            color: #d1d1d1;
+            text-decoration: none;
+            font-size: 0.78rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column-rodape a:hover {
+            color: #4a90e2;
+        }
+
+        .icon-rodape {
+            width: 12px;
+            height: 12px;
+            fill: #d1d1d1;
+            transition: fill 0.3s ease;
+        }
+
+        .footer-column-rodape a:hover .icon-rodape {
+            fill: #4a90e2;
+        }
+
+        .site-link-rodape {
+            margin-left: -30px;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom-rodape {
+            text-align: center;
+            background: #0a0a0a;
+            padding: 6px;
+            font-size: 0.8rem;
+            color: #d1d1d1;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .footer-bottom-rodape a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-rodape a:hover {
+            color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-industry"></i> RELATÓRIO DE PRODUÇÃO INDUSTRIAL</h1>
+        </header>
+        
+        <div class="content">
+            <!-- Seletor de Turno Integrado -->
+            <div class="turno-selector">
+                <label class="turno-label" for="turnoSelect">SELECIONE O TURNO:</label>
+                <select id="turnoSelect" class="turno-select">
+                    <option value="">  ESCOLHA O TURNO  </option>
+                    <option value="TURNO 1">TURNO 1</option>
+                    <option value="TURNO 2">TURNO 2</option>
+                    <option value="TURNO 3">TURNO 3</option>
+                    <option value="TURNO 4">TURNO 4</option>
+                </select>
+            </div>
+            
+            <div class="card">
+                <div class="card-title"><i class="fas fa-ruler-combined"></i> DIMENSIONAMENTO</div>
+                <div class="form-group">
+                    <label for="dimensao">Selecione o Formato:</label>
+                    <select id="dimensao" onchange="updateDimensionDisplay(); updateReport();">
+                        <option value="136.08">43x43</option>
+                        <option value="79.50">61,5x61,5</option>
+                        <option value="76.50">60x60 CERAL</option>
+                        <option value="64.80">60x60 UNIQUE</option>
+                        <option value="133.20">32x57</option>
+                        <option value="126.00">31x56</option>
+                        <option value="78.48">38x82</option>
+                        <option value="126.00">37x81</option>
+                        <option value="157.68">25x35</option>
+                        <option value="90.72">20x120</option>
+                    </select>
+                    <div class="dimension-info" id="dimensionDisplay">
+                        <span>Área por unidade: <strong>136,08 m²</strong></span>
+                        <span class="area-tag">43x43</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantidade">Quantidade de paletes não validados:</label>
+                    <input type="number" id="quantidade" min="0" value="1" onchange="calculate(); updateReport();">
+                </div>
+                
+                <div class="form-group">
+                    <label for="valor2">Produção validada adicional (m²):</label>
+                    <input type="number" id="valor2" step="any" value="0" placeholder="Digite a área adicional" onchange="calculate(); updateReport();">
+                </div>
+                
+                <button class="btn" onclick="calculate(); updateReport();"><i class="fas fa-calculator"></i> Calcular Produção</button>
+            </div>
+            
+            <div class="result-container">
+                <div class="result-title">Produção Total Calculada:</div>
+                <div class="result-value" id="resultado">0,00<span class="unit">m²</span></div>
+                
+                <div class="calculation-breakdown" id="breakdown">
+                    Detalhes do cálculo serão exibidos aqui
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="history">
+                    <div class="history-title"><i class="fas fa-history"></i> Histórico de Cálculos</div>
+                    <div class="history-container">
+                        <table id="historico">
+                            <thead>
+                                <tr>
+                                    <th>Formato</th>
+                                    <th>Paletes</th>
+                                    <th>Adicional</th>
+                                    <th>Total (m²)</th>
+                                    <th>Turno</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="empty-history-message">
+                                    <td colspan="5" class="empty-history">Nenhum cálculo realizado ainda</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="clear-history" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar Histórico</button>
+                </div>
+            </div>
+
+            <!-- SEGUNDA PARTE INTEGRADA -->
+            <div class="card">
+                <div class="card-title"><i class="fas fa-sliders-h"></i> CONFIGURAÇÕES DA LINHA</div>
+                <div class="form-group">
+                    <label for="linha">Selecione a Linha:</label>
+                    <select id="linha" onchange="updateReport()">
+                        <option value="Linha 2">Linha 2</option>
+                        <option value="Linha 3">Linha 3</option>
+                        <option value="Retifica">Retifica</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title"><i class="fas fa-clipboard-list"></i> INFORMAÇÕES ADICIONAIS</div>
+                <div class="additional-fields">
+                    <!-- NOVOS CAMPOS ADICIONADOS -->
+                    <div class="additional-field">
+                        <h3><i class="fas fa-fire"></i> Carga Forno (m²)</h3>
+                        <input type="number" id="cargaForno" step="any" value="0" placeholder="0,00" onchange="updateReport()">
+                    </div>
+
+                    <div class="additional-field">
+                        <h3><i class="fas fa-download"></i> Descargas Max Compenser</h3>
+                        <input type="number" id="descargasMax" step="any" value="0" placeholder="0" onchange="updateReport()">
+                    </div>
+
+                    <div class="additional-field">
+                        <h3><i class="fas fa-box"></i> Max Compenser Restante</h3>
+                        <input type="number" id="maxRestante" step="any" value="0" placeholder="0" onchange="updateReport()">
+                    </div>
+
+                    <div class="additional-field">
+                        <h3><i class="fas fa-chart-line"></i> Qualidade (%)</h3>
+                        <input type="number" id="qualidade" step="any" value="0" placeholder="0,00" onchange="updateReport()">
+                    </div>
+                    <div class="additional-field">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Emergência (paletes)</h3>
+                        <input type="number" id="emergencia" step="any" value="0" placeholder="0" onchange="updateReport()">
+                    </div>
+                    
+                    <!-- NOVO CAMPO: CALCULAR PERDA (RETIFICADO) -->
+                    <div class="additional-field perda-field">
+                        <h3><i class="fas fa-calculator"></i> Calcular Perda (Retifica)</h3>
+                        <select id="perdaFormato" onchange="togglePerdaCalculator()">
+                            <option value=""> Selecione o formato </option>
+                            <option value="31x56">31x56</option>
+                            <option value="60x60 CERAL">60x60 CERAL</option>
+                            <option value="60x60 UNIQUE">60x60 UNIQUE</option>
+                            <option value="37x81">37x81</option>
+                            <option value="20x120">20x120</option>
+                        </select>
+                        
+                        <div class="perda-calculator" id="perdaCalculator" style="display: none;">
+                            <div class="form-group">
+                                <label for="quantidadeRetificado">Quantidade de peças retificadas:</label>
+                                <input type="number" id="quantidadeRetificado" min="0" value="0" placeholder="0" onchange="calcularPerda()">
+                            </div>
+                            <div class="perda-result" id="perdaResult">
+                                Perda calculada: <span id="perdaValor">0,00</span> m²
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="additional-field falha-field">
+                        <h3><i class="fas fa-times-circle"></i> Falha</h3>
+                        <textarea id="falha" placeholder="Informações sobre falhas" onchange="updateReport()"></textarea>
+                    </div>
+                    <div class="additional-field quebra-field">
+                        <h3><i class="fas fa-exclamation-circle"></i> Quebra (m² e observações)</h3>
+                        <textarea id="quebra" placeholder="Digite o valor em m² e observações sobre quebra" onchange="updateReport()"></textarea>
+                    </div>
+                    <div class="additional-field observacoes-field">
+                        <h3><i class="fas fa-sticky-note"></i> Observações Gerais</h3>
+                        <textarea id="observacoes" placeholder="Observações adicionais" onchange="updateReport()"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="report-section">
+                    <div class="report-title"><i class="fas fa-file-alt"></i> Prévia do relatório </div>
+                    <div class="report-text" id="relatorio" contenteditable="true">
+*DATA:  | *
+
+   *Linha:* 
+   *Formato:* 
+   *Produção:* 
+   *Qualidade:* 
+   *Emergência:* 
+   *Falha:* 
+   *Quebra:* 
+
+*Observações gerais:* 
+                    </div>
+                    <div class="report-buttons">
+                        <button class="report-btn update-btn" onclick="updateReport()"><i class="fas fa-sync"></i> Atualizar prévia do relatório</button>
+                        <button class="report-btn add-btn" onclick="addToMultiReport()"><i class="fas fa-plus"></i> Adicionar ao relatório final</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA DO MULTI-RELATÓRIO -->
+            <div class="card" id="multiReportSection" style="display: none;">
+                <div class="report-section">
+                    <div class="report-title"><i class="fas fa-files"></i> RELATÓRIO </div>
+                    <div class="report-text" id="multiRelatorio">
+                        // Os relatórios concatenados aparecerão aqui
+                    </div>
+                    <div class="multi-report-footer">
+                        <button class="report-btn copy-btn" onclick="copyMultiReport()"><i class="fas fa-copy"></i> Copiar relatório</button>
+                        <button class="report-btn clear-btn" onclick="clearMultiReport()"><i class="fas fa-trash"></i> Limpar relatório</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ MJ TECH -->
+    <div class="novo-rodape-container">
+        <footer class="novo-rodape">
+            <!-- Logotipo -->
+            <div class="footer-logo-rodape">
+                <img src="https://i.pinimg.com/originals/4a/58/ed/4a58ed2f9d6d29b0df10891fb321d423.png" alt="Logo MJ TECH">
+            </div>
+
+            <!-- Contato -->
+            <div class="footer-column-rodape">
+                <h3>Contato</h3>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/5519998223705" target="_blank">
+                    <svg class="icon-rodape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                        <path d="M16 .5C7.4.5.5 7.4.5 16c0 2.8.7 5.5 2.1 7.9L.5 31.5l7.8-2.1C10.7 30.9 13.3 31.5 16 31.5c8.6 0 15.5-6.9 15.5-15.5S24.6.5 16 .5zM16 29c-2.3 0-4.5-.6-6.5-1.8l-.5-.3-4.6 1.2 1.2-4.5-.3-.5C4.1 21 3.5 18.6 3.5 16 3.5 8.7 9.7 2.5 17 2.5S30.5 8.7 30.5 16 23.3 29 16 29zm7.3-8.8c-.4-.2-2.4-1.2-2.8-1.4-.4-.2-.7-.2-1 .2s-1.2 1.4-1.4 1.6c-.3.2-.5.3-.9.1-2.5-1-4.1-3.5-4.3-3.7-.2-.4 0-.6.1-.8.1-.1.3-.5.5-.7.2-.3.3-.5.5-.8.2-.3.1-.6 0-.8-.1-.2-1-2.4-1.4-3.3-.4-.9-.7-.8-1-.8H10c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.6 1.3 3 1.4 3.2c.2.3 2.5 4 6.1 5.6.9.4 1.6.6 2.2.8.9.3 1.8.2 2.5.2.8 0 2.4-.9 2.7-1.8.3-.9.3-1.7.2-1.8-.1-.2-.4-.3-.9-.5z"/>
+                    </svg>
+                    (19) 99822-3705
+                </a>
+
+                <!-- Site -->
+                <a href="https://mjtech.net.br" target="_blank" class="site-link-rodape">
+                    mjtech.net.br
+                </a>
+            </div>
+        </footer>
+
+        <div class="footer-bottom-rodape">
+            © 2025 <a href="https://mjtech.net.br" target="_blank">MJ TECH</a> — Desenvolvido por 
+            <a href="https://github.com/xM4T3US" target="_blank">Mateus Junior</a>
+        </div>
+    </div>
+
+    <script>
+        // Variável global para armazenar o turno selecionado
+        let turnoSelecionado = "";
+        let historicoCalculos = [];
+        let perdaCalculada = 0;
+        let multiRelatorios = [];
+        let perdaFormatada = ""; // Nova variável para armazenar a perda formatada
+        let quantidadeRetificados = 0; // Nova variável para armazenar a quantidade de retificados
+
+        // Captura a seleção do usuário e armazena
+        document.getElementById("turnoSelect").addEventListener("change", function() {
+            turnoSelecionado = this.value;
+            console.log("Turno selecionado:", turnoSelecionado);
+            updateReport();
+        });
+
+        // Função para mostrar/ocultar a calculadora de perda
+        function togglePerdaCalculator() {
+            const perdaFormato = document.getElementById("perdaFormato").value;
+            const calculator = document.getElementById("perdaCalculator");
+            const result = document.getElementById("perdaResult");
+            
+            if (perdaFormato) {
+                calculator.style.display = "block";
+                result.style.display = "none";
+                // Limpa os campos quando muda o formato
+                document.getElementById("quantidadeRetificado").value = 0;
+                perdaCalculada = 0;
+                perdaFormatada = ""; // Limpa a perda formatada
+                quantidadeRetificados = 0; // Limpa a quantidade de retificados
+                updateReport();
+            } else {
+                calculator.style.display = "none";
+                result.style.display = "none";
+                perdaCalculada = 0;
+                perdaFormatada = ""; // Limpa a perda formatada
+                quantidadeRetificados = 0; // Limpa a quantidade de retificados
+                updateReport();
+            }
+        }
+
+        // Função para calcular a perda (retificado)
+        function calcularPerda() {
+            const formato = document.getElementById("perdaFormato").value;
+            quantidadeRetificados = parseInt(document.getElementById("quantidadeRetificado").value) || 0;
+            const result = document.getElementById("perdaResult");
+            const perdaValorElement = document.getElementById("perdaValor");
+            
+            if (!formato || quantidadeRetificados === 0) {
+                result.style.display = "none";
+                perdaCalculada = 0;
+                perdaFormatada = ""; // Limpa a perda formatada
+                quantidadeRetificados = 0; // Limpa a quantidade de retificados
+                updateReport();
+                return;
+            }
+            
+            // Cálculos de perda retifica
+            let perdaPorUnidade = 0;
+            
+            switch(formato) {
+                case "31x56":
+                    perdaPorUnidade = 0.0100; // Exemplo: 1.0 m² por unidade retificada
+                    break;
+                case "60x60 CERAL":
+                    perdaPorUnidade = 0.0142; // Exemplo: 2.0 m² por unidade retificada
+                    break;
+                case "60x60 UNIQUE":
+                    perdaPorUnidade = 0.0186; // Exemplo: 2.0 m² por unidade retificada
+                    break;
+                case "37x81":
+                    perdaPorUnidade = 0.0081; // Exemplo: 3.0 m² por unidade retificada
+                    break;
+                case "20x120":
+                    perdaPorUnidade = 0.0083; // Exemplo: 4.0 m² por unidade retificada
+                    break;
+                default:
+                    perdaPorUnidade = 0;
+            }
+            
+            perdaCalculada = quantidadeRetificados * perdaPorUnidade;
+            
+            // Atualiza a exibição do resultado
+            perdaValorElement.textContent = perdaCalculada.toFixed(2).replace('.', ',');
+            result.style.display = "block";
+            
+            // Armazena a perda formatada para usar no relatório
+            perdaFormatada = `Perda pós retifica: ${perdaCalculada.toFixed(2).replace('.', ',')} m²`;
+            
+            updateReport();
+        }
+
+        // Função para atualizar a exibição da dimensão selecionada
+        function updateDimensionDisplay() {
+            const select = document.getElementById("dimensao");
+            const display = document.getElementById("dimensionDisplay");
+            const selectedOption = select.options[select.selectedIndex];
+            const area = parseFloat(select.value).toFixed(2);
+            const formato = selectedOption.text;
+            
+            display.innerHTML = `
+                <span>Área por unidade: <strong>${area.replace('.', ',')} m²</strong></span>
+                <span class="area-tag">${formato}</span>
+            `;
+        }
+
+        // Função para calcular a produção (AGORA ACEITA QUANTIDADE = 0)
+        function calculate() {
+            const dimensao = parseFloat(document.getElementById("dimensao").value);
+            const quantidade = parseInt(document.getElementById("quantidade").value) || 0; // Aceita 0
+            const adicional = parseFloat(document.getElementById("valor2").value) || 0;
+            
+            // REMOVIDA A VALIDAÇÃO QUE IMPEDIA CÁLCULO COM QUANTIDADE = 0
+            const total = (dimensao * quantidade) + adicional;
+            
+            // Atualiza o resultado
+            document.getElementById("resultado").innerHTML = `${total.toFixed(2).replace('.', ',')}<span class="unit">m²</span>`;
+            
+            // Atualiza o breakdown
+            const breakdown = document.getElementById("breakdown");
+            let breakdownText = `<strong>Detalhamento do cálculo:</strong><br>`;
+            
+            if (quantidade > 0) {
+                breakdownText += `• ${quantidade} palete(s) × ${dimensao.toFixed(2).replace('.', ',')} m² = ${(dimensao * quantidade).toFixed(2).replace('.', ',')} m²<br>`;
+            }
+            
+            if (adicional > 0) {
+                breakdownText += `• Produção adicional: ${adicional.toFixed(2).replace('.', ',')} m²<br>`;
+            }
+            
+            if (quantidade === 0 && adicional === 0) {
+                breakdownText += `• Nenhuma produção calculada<br>`;
+            }
+            
+            breakdownText += `• <strong>Total: ${total.toFixed(2).replace('.', ',')} m²</strong>`;
+            
+            breakdown.innerHTML = breakdownText;
+            
+            // Adiciona ao histórico apenas se houver algum valor calculado
+            if (total > 0) {
+                addToHistory(dimensao, quantidade, adicional, total);
+            }
+        }
+
+        // Função para adicionar cálculo ao histórico
+        function addToHistory(dimensao, quantidade, adicional, total) {
+            const select = document.getElementById("dimensao");
+            const formato = select.options[select.selectedIndex].text;
+            
+            historicoCalculos.unshift({ 
+                formato, 
+                paletes: quantidade, 
+                adicional, 
+                total,
+                turno: turnoSelecionado 
+            });
+            
+            // Limitar histórico aos 10 últimos cálculos
+            if (historicoCalculos.length > 10) {
+                historicoCalculos.pop();
+            }
+            
+            updateHistoryDisplay();
+        }
+
+        // Atualizar a exibição do histórico
+        function updateHistoryDisplay() {
+            const tbody = document.querySelector('#historico tbody');
+            
+            if (historicoCalculos.length === 0) {
+                tbody.innerHTML = '<tr class="empty-history-message"><td colspan="5" class="empty-history">Nenhum cálculo realizado ainda</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            
+            historicoCalculos.forEach(calc => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${calc.formato}</td>
+                    <td>${calc.paletes}</td>
+                    <td>${calc.adicional.toFixed(2).replace('.', ',')} m²</td>
+                    <td><strong>${calc.total.toFixed(2).replace('.', ',')} m²</strong></td>
+                    <td>${calc.turno || "Não informado"}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Limpar histórico
+        function clearHistory() {
+            historicoCalculos = [];
+            updateHistoryDisplay();
+        }
+        
+        // FUNÇÃO updateReport() MODIFICADA COM OS NOVOS CAMPOS
+        function updateReport() {
+            const linha = document.getElementById('linha').value;
+            const formatoSelect = document.getElementById('dimensao');
+            const formato = formatoSelect.options[formatoSelect.selectedIndex].text;
+            const producao = document.getElementById('resultado').innerText;
+            const qualidade = document.getElementById('qualidade').value;
+            const emergencia = document.getElementById('emergencia').value;
+            const falha = document.getElementById('falha').value;
+            const quebra = document.getElementById('quebra').value;
+            const observacoes = document.getElementById('observacoes').value;
+            
+            // NOVOS CAMPOS
+            const cargaForno = document.getElementById('cargaForno').value;
+            const descargasMax = document.getElementById('descargasMax').value;
+            const maxRestante = document.getElementById('maxRestante').value;
+            
+            // Obter data atual
+            const hoje = new Date();
+            const dataFormatada = hoje.toLocaleDateString('pt-BR');
+            
+            // Formatação do relatório 
+            let relatorioTexto = `*DATA: ${dataFormatada} | ${turnoSelecionado || "Turno não selecionado"}*\n\n`;
+            relatorioTexto += `ㅤ  *Linha:* ${linha}\n`;
+            relatorioTexto += `ㅤ  *Formato:* ${formato}\n`;
+            relatorioTexto += `ㅤ  *Produção:* ${producao}\n`;
+            
+            //CARGA FORNO
+            if ((linha === 'Linha 2' || linha === 'Linha 3') && cargaForno && parseFloat(cargaForno) > 0) {
+                relatorioTexto += `ㅤ  *Carga Forno:* ${parseFloat(cargaForno).toFixed(2).replace('.', ',')} m²\n`;
+            }
+            
+            relatorioTexto += `ㅤ  *Qualidade:* ${qualidade}%\n`;
+            relatorioTexto += `ㅤ  *Emergência:* ${emergencia} palete(s)\n`;
+            relatorioTexto += `ㅤ  *Falha:* ${falha || 'Nenhuma'}\n`;
+            
+            //DESCARGAS MAX
+            if ((linha === 'Linha 2' || linha === 'Linha 3') && descargasMax && parseFloat(descargasMax) > 0) {
+                relatorioTexto += `ㅤ  *Descargas Compenser:* ${descargasMax}\n`;
+            }
+            
+            let textoQuebra = '';
+            
+            if (perdaFormatada && quebra) {
+                textoQuebra = `${perdaFormatada} | ${quebra}`;
+            } else if (perdaFormatada) {
+                textoQuebra = perdaFormatada;
+            } else if (quebra) {
+                textoQuebra = quebra;
+            } else {
+                textoQuebra = 'Nenhuma';
+            }
+            
+            relatorioTexto += `ㅤ  *Quebra:* ${textoQuebra}\n`;
+            
+            //MAX COMPENSER RESTANTE
+            if ((linha === 'Linha 2' || linha === 'Linha 3') && maxRestante && parseFloat(maxRestante) > 0) {
+                relatorioTexto += `ㅤ  *Compenser Restante:* ${maxRestante}\n`;
+            }
+            
+            relatorioTexto += '\n'; // Espaço antes das observações
+            
+            // Adiciona informação sobre número de peças retificadas nas observações gerais
+            let textoObservacoes = observacoes || '';
+            if (quantidadeRetificados > 0) {
+                if (textoObservacoes) {
+                    textoObservacoes = `Número de peças retificadas: ${quantidadeRetificados}\n${textoObservacoes}`;
+                } else {
+                    textoObservacoes = `Número de peças retificadas: ${quantidadeRetificados}`;
+                }
+            }
+            
+            relatorioTexto += `*Observações gerais:* ${textoObservacoes || 'Nenhuma'}`;
+            
+            document.getElementById('relatorio').innerText = relatorioTexto;
+        }
+
+        //Adicionar relatório ao multi-relatório
+        function addToMultiReport() {
+            const relatorioAtual = document.getElementById('relatorio').innerText;
+            
+            if (multiRelatorios.length === 0) {
+                multiRelatorios.push(relatorioAtual);
+            } else {
+                
+                const linhas = relatorioAtual.split('\n');
+                let relatorioSemData = '';
+                let comecouConteudo = false;
+                let primeiraLinhaConteudo = true;
+                
+                for (let i = 0; i < linhas.length; i++) {
+                    if (linhas[i].startsWith('*DATA:')) {
+                        continue; 
+                    }
+                    if (linhas[i].trim() === '' && !comecouConteudo) {
+                        continue; 
+                    }
+                    
+                    comecouConteudo = true;
+                    
+                    if (primeiraLinhaConteudo && linhas[i].trim() !== '') {
+                        relatorioSemData += '' + linhas[i] + '\n';
+                        primeiraLinhaConteudo = false;
+                    } else {
+                        relatorioSemData += linhas[i] + '\n';
+                    }
+                }
+                
+                multiRelatorios.push(relatorioSemData.trim());
+            }
+            
+            updateMultiReport();
+            
+            // Mostra a seção do multi-relatório
+            document.getElementById('multiReportSection').style.display = 'block';
+            
+            // Feedback visual
+            const btn = document.querySelector('.add-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Adicionado!';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+
+        function updateMultiReport() {
+            const multiRelatorioElement = document.getElementById('multiRelatorio');
+            let textoCompleto = '';
+            
+            multiRelatorios.forEach((relatorio, index) => {
+                textoCompleto += relatorio;
+                
+                if (index < multiRelatorios.length - 1) {
+                    textoCompleto += '\n\n\n'; 
+                }
+            });
+            
+            multiRelatorioElement.innerText = textoCompleto;
+        }
+
+        // Função para limpar multi-relatório
+        function clearMultiReport() {
+            multiRelatorios = [];
+            document.getElementById('multiRelatorio').innerText = '';
+            document.getElementById('multiReportSection').style.display = 'none';
+            
+            // Feedback visual
+            const btn = document.querySelector('.clear-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Limpo!';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+
+        // Função para copiar multi-relatório
+        function copyMultiReport() {
+            const multiRelatorio = document.getElementById('multiRelatorio');
+            
+            // Selecionar o texto
+            const range = document.createRange();
+            range.selectNode(multiRelatorio);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            
+            // Copiar
+            document.execCommand('copy');
+            
+            // Desselecionar
+            window.getSelection().removeAllRanges();
+            
+            // Feedback visual
+            const btn = document.querySelector('.copy-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+        
+        // Inicializar a exibição da dimensão
+        updateDimensionDisplay();
+        updateReport();
+    </script>
+</body>
+</html>
