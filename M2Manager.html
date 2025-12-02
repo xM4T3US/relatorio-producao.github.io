@@ -159,6 +159,67 @@
             font-weight: 600;
         }
         
+        /* Estilo para linha de formulário com duas colunas */
+        .form-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group-half {
+            flex: 1;
+        }
+        
+        /* NOVO: Estilo para seção de Produção 24h */
+        .producao-24h-section {
+            margin-top: 30px;
+        }
+        
+        .producao-24h-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .producao-item {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .producao-item-title {
+            color: var(--azul-claro);
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--azul-medio);
+            padding-bottom: 8px;
+        }
+        
+        .producao-fields {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .producao-field {
+            flex: 1;
+        }
+        
+        .producao-field label {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--cinza-medio);
+        }
+        
+        .producao-field input {
+            padding: 12px 14px;
+            font-size: 15px;
+        }
+        
         .btn {
             background: linear-gradient(90deg, var(--azul-cobalto) 0%, var(--azul-medio) 100%);
             color: var(--branco);
@@ -514,6 +575,27 @@
                 margin-top: 0;
             }
             
+            /* Responsividade para linha de formulário */
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-group-half {
+                width: 100%;
+            }
+            
+            /* NOVO: Responsividade para Produção 24h */
+            .producao-24h-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .producao-fields {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
             .additional-fields {
                 grid-template-columns: 1fr;
             }
@@ -559,6 +641,10 @@
             
             .card-title {
                 font-size: 16px;
+            }
+            
+            .producao-item-title {
+                font-size: 15px;
             }
             
             th, td {
@@ -698,6 +784,19 @@
                 </select>
             </div>
             
+            <!-- Seletor de linha (MOVIDO para cá) -->
+            <div class="card">
+                <div class="card-title"><i class="fas fa-sliders-h"></i> CONFIGURAÇÕES DA LINHA</div>
+                <div class="form-group">
+                    <label for="linha">Selecione a Linha:</label>
+                    <select id="linha" onchange="updateReport()">
+                        <option value="Linha 2">Linha 2</option>
+                        <option value="Linha 3">Linha 3</option>
+                        <option value="Retifica">Retifica</option>
+                    </select>
+                </div>
+            </div>
+            
             <div class="card">
                 <div class="card-title"><i class="fas fa-ruler-combined"></i> DIMENSIONAMENTO</div>
                 <div class="form-group">
@@ -725,9 +824,17 @@
                     <input type="number" id="quantidade" min="0" value="1" onchange="calculate(); updateReport();">
                 </div>
                 
-                <div class="form-group">
-                    <label for="valor2">Produção validada adicional (m²):</label>
-                    <input type="number" id="valor2" step="any" value="0" placeholder="Digite a área adicional" onchange="calculate(); updateReport();">
+                <!-- Campos lado a lado - Produção adicional e Qualidade -->
+                <div class="form-row">
+                    <div class="form-group-half">
+                        <label for="valor2">Produção validada adicional (m²):</label>
+                        <input type="number" id="valor2" step="any" value="0" placeholder="Digite a área adicional" onchange="calculate(); updateReport();">
+                    </div>
+                    
+                    <div class="form-group-half">
+                        <label for="qualidade">Qualidade (%):</label>
+                        <input type="number" id="qualidade" step="any" value="0" placeholder="0,00" min="0" max="100" onchange="updateReport()">
+                    </div>
                 </div>
                 
                 <button class="btn" onclick="calculate(); updateReport();"><i class="fas fa-calculator"></i> Calcular Produção</button>
@@ -766,49 +873,89 @@
                     <button class="clear-history" onclick="clearHistory()"><i class="fas fa-trash"></i> Limpar Histórico</button>
                 </div>
             </div>
-
-            <!-- Seletor de linha -->
+            
+            <!-- NOVA SEÇÃO: PRODUÇÃO 24H -->
             <div class="card">
-                <div class="card-title"><i class="fas fa-sliders-h"></i> CONFIGURAÇÕES DA LINHA</div>
-                <div class="form-group">
-                    <label for="linha">Selecione a Linha:</label>
-                    <select id="linha" onchange="updateReport()">
-                        <option value="Linha 2">Linha 2</option>
-                        <option value="Linha 3">Linha 3</option>
-                        <option value="Retifica">Retifica</option>
-                    </select>
+                <div class="card-title"><i class="fas fa-chart-bar"></i> PRODUÇÃO 24H</div>
+                <div class="producao-24h-section">
+                    <div class="producao-24h-grid">
+                        <!-- Produção 24h -->
+                        <div class="producao-item">
+                            <div class="producao-item-title">
+                                <i class="fas fa-clock"></i> Produção 24h
+                            </div>
+                            <div class="producao-fields">
+                                <div class="producao-field">
+                                    <label for="producao24h">Produção 24h (m²)</label>
+                                    <input type="number" id="producao24h" step="any" min="0" value="0" placeholder="0,00" onchange="updateReport()">
+                                </div>
+                                <div class="producao-field">
+                                    <label for="qualidade24h">Qualidade (%)</label>
+                                    <input type="number" id="qualidade24h" step="any" min="0" max="100" value="0" placeholder="0,00" onchange="updateReport()">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Total dia -->
+                        <div class="producao-item">
+                            <div class="producao-item-title">
+                                <i class="fas fa-calendar-day"></i> Total dia
+                            </div>
+                            <div class="producao-fields">
+                                <div class="producao-field">
+                                    <label for="totalDia">Total dia (m²)</label>
+                                    <input type="number" id="totalDia" step="any" min="0" value="0" placeholder="0,00" onchange="updateReport()">
+                                </div>
+                                <div class="producao-field">
+                                    <label for="qualidadeTotalDia">Qualidade (%)</label>
+                                    <input type="number" id="qualidadeTotalDia" step="any" min="0" max="100" value="0" placeholder="0,00" onchange="updateReport()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="card">
                 <div class="card-title"><i class="fas fa-clipboard-list"></i> INFORMAÇÕES ADICIONAIS</div>
                 <div class="additional-fields">
-                    <!-- Supervisorio e Max compenser-->
-                    <div class="additional-field">
-                        <h3><i class="fas fa-fire"></i> Carga Forno (m²)</h3>
-                        <input type="number" id="cargaForno" step="any" value="0" placeholder="0,00" onchange="updateReport()">
+                    <!-- 1º: FALHA -->
+                    <div class="additional-field falha-field">
+                        <h3><i class="fas fa-times-circle"></i> Falha</h3>
+                        <textarea id="falha" placeholder="Informações sobre falhas" onchange="updateReport()"></textarea>
                     </div>
-
-                    <div class="additional-field">
-                        <h3><i class="fas fa-download"></i> Descargas Max Compenser</h3>
-                        <input type="number" id="descargasMax" step="any" value="0" placeholder="0" onchange="updateReport()">
-                    </div>
-
-                    <div class="additional-field">
-                        <h3><i class="fas fa-box"></i> Max Compenser Restante</h3>
-                        <input type="number" id="maxRestante" step="any" value="0" placeholder="0" onchange="updateReport()">
-                    </div>
-
-                    <div class="additional-field">
-                        <h3><i class="fas fa-chart-line"></i> Qualidade (%)</h3>
-                        <input type="number" id="qualidade" step="any" value="0" placeholder="0,00" onchange="updateReport()">
-                    </div>
+                    
+                    <!-- 2º: EMERGÊNCIA -->
                     <div class="additional-field">
                         <h3><i class="fas fa-exclamation-triangle"></i> Emergência (paletes)</h3>
                         <input type="number" id="emergencia" step="any" value="0" placeholder="0" onchange="updateReport()">
                     </div>
                     
-                    <!-- CALCULAR PERDA (RETIFICADO) -->
+                    <!-- 3º: QUEBRA -->
+                    <div class="additional-field quebra-field">
+                        <h3><i class="fas fa-exclamation-circle"></i> Quebra (m² e observações)</h3>
+                        <textarea id="quebra" placeholder="Digite o valor em m² e observações sobre quebra" onchange="updateReport()"></textarea>
+                    </div>
+                    
+                    <!-- 4º: CARGA FORNO -->
+                    <div class="additional-field">
+                        <h3><i class="fas fa-fire"></i> Carga Forno (m²)</h3>
+                        <input type="number" id="cargaForno" step="any" value="1" placeholder="0,00" onchange="updateReport()">
+                    </div>
+
+                    <!-- 5º: DESCARGA MAX COMPENSER -->
+                    <div class="additional-field">
+                        <h3><i class="fas fa-download"></i> Descargas Max Compenser</h3>
+                        <input type="number" id="descargasMax" step="any" value="1" placeholder="0" onchange="updateReport()">
+                    </div>
+
+                    <!-- 6º: MAX COMPENSER RESTANTE (AGORA É TEXTO) -->
+                    <div class="additional-field">
+                        <h3><i class="fas fa-box"></i> Max Compenser Restante</h3>
+                        <input type="text" id="maxRestante" value="cheio" placeholder="Ex: cheio, 1/4, metade, etc." onchange="updateReport()">
+                    </div>
+
+                    <!-- 7º: CALCULAR PERDA (RETIFICADO) -->
                     <div class="additional-field perda-field">
                         <h3><i class="fas fa-calculator"></i> Calcular Perda (Retifica)</h3>
                         <select id="perdaFormato" onchange="togglePerdaCalculator()">
@@ -831,14 +978,7 @@
                         </div>
                     </div>
                     
-                    <div class="additional-field falha-field">
-                        <h3><i class="fas fa-times-circle"></i> Falha</h3>
-                        <textarea id="falha" placeholder="Informações sobre falhas" onchange="updateReport()"></textarea>
-                    </div>
-                    <div class="additional-field quebra-field">
-                        <h3><i class="fas fa-exclamation-circle"></i> Quebra (m² e observações)</h3>
-                        <textarea id="quebra" placeholder="Digite o valor em m² e observações sobre quebra" onchange="updateReport()"></textarea>
-                    </div>
+                    <!-- 8º: OBSERVAÇÕES GERAIS -->
                     <div class="additional-field observacoes-field">
                         <h3><i class="fas fa-sticky-note"></i> Observações Gerais</h3>
                         <textarea id="observacoes" placeholder="Observações adicionais" onchange="updateReport()"></textarea>
@@ -989,10 +1129,10 @@
                     perdaPorUnidade = 0.0186; // Exemplo: 2.0 m² por unidade retificada
                     break;
                 case "37x81":
-                    perdaPorUnidade = 0.0081; // Exemplo: 3.0 m² por unidade retificada
+                    perdaPorUnidade = 0.0081; // Exemplo: 3.0 m² perda por unidade retificada
                     break;
                 case "20x120":
-                    perdaPorUnidade = 0.0083; // Exemplo: 4.0 m² por unidade retificada
+                    perdaPorUnidade = 0.0083; // Exemplo: 4.0 m² perda por unidade retificada
                     break;
                 default:
                     perdaPorUnidade = 0;
@@ -1057,6 +1197,8 @@
             
             if (total > 0) {
                 addToHistory(dimensao, quantidade, adicional, total);
+            }
+        }
 
         // histórico de cálculo 
         function addToHistory(dimensao, quantidade, adicional, total) {
@@ -1125,6 +1267,12 @@
             const descargasMax = document.getElementById('descargasMax').value;
             const maxRestante = document.getElementById('maxRestante').value;
             
+            // NOVOS CAMPOS: PRODUÇÃO 24H
+            const producao24h = document.getElementById('producao24h').value;
+            const qualidade24h = document.getElementById('qualidade24h').value;
+            const totalDia = document.getElementById('totalDia').value;
+            const qualidadeTotalDia = document.getElementById('qualidadeTotalDia').value;
+            
             // Obter data atual
             const hoje = new Date();
             const dataFormatada = hoje.toLocaleDateString('pt-BR');
@@ -1163,14 +1311,21 @@
             
             relatorioTexto += `ㅤ  *Quebra:* ${textoQuebra}\n`;
             
-            //MAX COMPENSER RESTANTE
-            if ((linha === 'Linha 2' || linha === 'Linha 3') && maxRestante && parseFloat(maxRestante) > 0) {
+            //MAX COMPENSER RESTANTE - AGORA É TEXTO
+            if ((linha === 'Linha 2' || linha === 'Linha 3') && maxRestante && maxRestante.trim() !== '') {
                 relatorioTexto += `ㅤ  *Compenser Restante:* ${maxRestante}\n`;
             }
             
-            relatorioTexto += '\n'; // Espaço antes das observações
+            // NOVO: ADICIONAR PRODUÇÃO 24H E TOTAL DIA com formatação específica
+            const producao24hNum = parseFloat(producao24h) || 0;
+            const totalDiaNum = parseFloat(totalDia) || 0;
             
-            // Adiciona informação sobre número de peças retificadas nas observações gerais
+            // Produção 24h: adiciona 1 linha de espaçamento após Compenser Restante
+            if (producao24hNum > 1) {
+                relatorioTexto += `\nㅤ  *Produção 24h:* ${producao24hNum.toFixed(2).replace('.', ',')} m² / ${qualidade24h || '0'}%\n`;
+            }
+            
+            // Observações gerais
             let textoObservacoes = observacoes || '';
             if (quantidadeRetificados > 0) {
                 if (textoObservacoes) {
@@ -1180,7 +1335,12 @@
                 }
             }
             
-            relatorioTexto += `*Observações gerais:* ${textoObservacoes || 'Nenhuma'}`;
+            relatorioTexto += `\n*Observações gerais:* ${textoObservacoes || 'Nenhuma'}`;
+            
+            // Total dia: adiciona 2 linhas de espaçamento após Observações gerais
+            if (totalDiaNum > 1) {
+                relatorioTexto += `\n\n\nㅤ  *Total dia:* ${totalDiaNum.toFixed(2).replace('.', ',')} m² / ${qualidadeTotalDia || '0'}%`;
+            }
             
             document.getElementById('relatorio').innerText = relatorioTexto;
         }
